@@ -1,0 +1,22 @@
+<center>
+    <h1>Login</h1>
+    <% if (messages.error) { %>
+    <%- messages.error %>
+    <% } %>
+    <form action="/login" method="POST">
+    <div>
+        <label for= "ntid"> NTID </label>
+        <input type ="text" id="ntid" name="ntid" 
+        required
+    </div>
+    <div>
+        <label for= "password"> Password </label>
+        <input type ="password" id="password" name="password" 
+        required
+    </div>
+    <br>
+    <button type="submit">Login</button>
+    </form>
+
+    <a href="/Register">Register</a>
+</center>
