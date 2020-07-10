@@ -8,17 +8,44 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
-
 const initializepassport= require('./passport-config')
+const expressEjsLayouts = require('express-ejs-layouts')
 initializepassport(
     passport, 
     ntid=> users.find(user => user.ntid === ntid),
     id=> users.find(user => user.id === id)
 )
 
+//database
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+var firebase = require("firebase/app");
+
+// Add the Firebase products that you want to use
+require("firebase/auth");
+require("firebase/firestore");
+
+  // Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyBKt0oA8WHPDJJMltI57PTYELYs1vH0p1g",
+    authDomain: "ad-webapp-ee28e.firebaseapp.com",
+    databaseURL: "https://ad-webapp-ee28e.firebaseio.com",
+    projectId: "ad-webapp-ee28e",
+    storageBucket: "ad-webapp-ee28e.appspot.com",
+    messagingSenderId: "985773520639",
+    appId: "1:985773520639:web:28ff8bd18cd05999077eca"
+};
+  // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
 const users = []
 
 app.set('view-engine', 'ejs')
+app.set('views',__dirname + '/views')
+app.set('layout', 'layouts/layout')
+app.use(expressEjsLayouts)
+app.use(express.static('public'))
 app.use(express.urlencoded({extended: false}))
 app.use (flash())
 app.use (session({
